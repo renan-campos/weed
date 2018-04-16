@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+	{% if session.logged_in %}
+	<table style="width:100%">
+		<tr>
+			<th> Date </th>
+			<th> Temp </th>
+			<th> Humidity </th>
+			<th> Moisture </th>
+		</tr>
+	{% for entry in entries %}
+		<tr>
+			<td>{{ entry.sdate }}</td>
+			<td>{{ entry.temp  }}&#176;F</td>
+			<td>{{ entry.hum   }}&#37;</td>
+			<td>{{ entry.moi   }}&#37;</td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% endif %}
+{% endblock %}
