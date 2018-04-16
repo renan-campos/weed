@@ -8,6 +8,8 @@ import RPi.GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
 
+from datetime import datetime
+
 # DHT-11 Power Pin
 dht11_power = 17
 # DHT-11 Data Pin 
@@ -86,6 +88,9 @@ def getTempHum():
 
 
 def getSoilMoisture():
+    """
+        Returns soil moisture
+    """
     # Set up logger
     logger = logging.getLogger(__name__)
     handler = logging.handlers.RotatingFileHandler(
@@ -122,3 +127,16 @@ def getSoilMoisture():
     GPIO.output(mcp3008_power, GPIO.LOW)
     
     return percent
+
+def getPic():
+    """
+    Take picture with camera and store in imgs/
+    Returns name of new image.
+    """
+    # No working camera, just copy foo into new jpg.
+    name = '%s.jpg' % datetime.today().strftime("%c")
+    name = name.replace(' ', '_')
+    with open('dynamic/foo.jpg', 'r') as f:
+        with open('dynamic/%s' % name, 'w') as o:
+            o.write(f.read())
+    return name
