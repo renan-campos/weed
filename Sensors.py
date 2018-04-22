@@ -3,6 +3,8 @@ import time
 import logging
 import logging.handlers
 
+import picamera
+
 import RPi.GPIO as GPIO
 
 import Adafruit_GPIO.SPI as SPI
@@ -133,10 +135,10 @@ def getPic():
     Take picture with camera and store in imgs/
     Returns name of new image.
     """
-    # No working camera, just copy foo into new jpg.
-    name = '%s.jpg' % datetime.today().strftime("%c")
-    name = name.replace(' ', '_')
-    with open('dynamic/foo.jpg', 'r') as f:
-        with open('dynamic/%s' % name, 'w') as o:
-            o.write(f.read())
+    #name = '%s.jpg' % datetime.today().strftime("%c")
+    #name = name.replace(' ', '_')
+    name = 'Capture.jpg'
+
+    with picamera.PiCamera() as camera:
+        camera.capture('dynamic/%s' % name)
     return name
